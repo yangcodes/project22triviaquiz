@@ -116,29 +116,46 @@ const gaugeWidth = 800; // 800 px
 const gaugeUnit = gaugeWidth / questionTime; //80 px
 let TIMER;
 
+//start button event listner
+start.addEventListener("click", startQuiz);
+
 //renderQuestion function
 function renderQuestion() {
   let q = questions[activeQuestion];
   question.innerHTML = "<p>" + q.question + "</p>";
-  answerChoiceA.innerHTML = q.ChoiceA;
-  answerChoiceB.innerHTML = q.ChoiceB;
-  answerChoiceC.innerHTML = q.ChoiceC;
-  answerChoiceD.innerHTML = q.ChoiceD;
+  answerChoiceA.innerHTML = q.choiceA;
+  answerChoiceB.innerHTML = q.choiceB;
+  answerChoiceC.innerHTML = q.choiceC;
+  answerChoiceD.innerHTML = q.choiceD;
 
   let bodyImg = `url("${q.questionImg}")`;
   document.body.style.backgroundImage = bodyImg;
 }
+// start quiz function
+function startQuiz() {
+  start.style.display = "none";
 
-start.style.display = "none";
-
-renderQuestion();
-quiz.style.visibility = "visible";
-renderProgress();
+  renderQuestion();
+  quiz.style.visibility = "visible";
+  renderProgress();
+  TIMER = setInterval(renderCounter, 1000);
+}
 
 //renderProgress function
 function renderProgress() {
   for (let questionIndex = 0; questionIndex <= lastQuestion; questionIndex++) {
     progressContainer.innerHTML +=
       "<div class = 'progress-box' id=" + questionIndex + "></div>";
+  }
+}
+
+//render counter function
+function renderCounter() {
+  if (count <= questionTime) {
+    counter.innerHTML = count;
+    timeGauge.style.width = count * gaugeUnit + "px";
+    count++;
+  } else {
+    count = 0;
   }
 }
