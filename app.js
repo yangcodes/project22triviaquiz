@@ -3,9 +3,9 @@ const quiz = document.querySelector(".quiz");
 const question = document.querySelector(".question");
 const allAnswerChoices = document.querySelectorAll(".choice");
 const answerChoiceA = document.querySelector("#A");
-const answerChoiceA = document.querySelector("#B");
-const answerChoiceA = document.querySelector("#C");
-const answerChoiceA = document.querySelector("#D");
+const answerChoiceB = document.querySelector("#B");
+const answerChoiceC = document.querySelector("#C");
+const answerChoiceD = document.querySelector("#D");
 const counter = document.querySelector(".counter");
 const timeGauge = document.querySelector(".time-gauge");
 const progressContainer = document.querySelector(".progress-container");
@@ -111,6 +111,10 @@ let questions = [
 const lastQuestion = questions.length - 1;
 let activeQuestion = 0;
 let count = 0;
+const questionTime = 10; // 10 seconds
+const gaugeWidth = 800; // 800 px
+const gaugeUnit = gaugeWidth / questionTime; //80 px
+let TIMER;
 
 //renderQuestion function
 function renderQuestion() {
@@ -129,3 +133,12 @@ start.style.display = "none";
 
 renderQuestion();
 quiz.style.visibility = "visible";
+renderProgress();
+
+//renderProgress function
+function renderProgress() {
+  for (let questionIndex = 0; questionIndex <= lastQuestion; questionIndex++) {
+    progressContainer.innerHTML +=
+      "<div class = 'progress-box' id=" + questionIndex + "></div>";
+  }
+}
