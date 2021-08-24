@@ -106,3 +106,26 @@ let questions = [
     correctAnswer: "It will be chased or killed",
   },
 ];
+
+//necessary variables
+const lastQuestion = questions.length - 1;
+let activeQuestion = 0;
+let count = 0;
+
+//renderQuestion function
+function renderQuestion() {
+  let q = questions[activeQuestion];
+  question.innerHTML = "<p>" + q.question + "</p>";
+  answerChoiceA.innerHTML = q.ChoiceA;
+  answerChoiceB.innerHTML = q.ChoiceB;
+  answerChoiceC.innerHTML = q.ChoiceC;
+  answerChoiceD.innerHTML = q.ChoiceD;
+
+  let bodyImg = `url("${q.questionImg}")`;
+  document.body.style.backgroundImage = bodyImg;
+}
+
+start.style.display = "none";
+
+renderQuestion();
+quiz.style.visibility = "visible";
