@@ -115,6 +115,7 @@ const questionTime = 10; // 10 seconds
 const gaugeWidth = 800; // 800 px
 const gaugeUnit = gaugeWidth / questionTime; //80 px
 let TIMER;
+let score = 0;
 
 //start button event listner
 start.addEventListener("click", startQuiz);
@@ -166,4 +167,24 @@ function renderCounter() {
   } else {
     count = 0;
   }
+}
+
+//check answer function
+function checkAnswer(answer) {
+  if (answer === questions[activeQuestion].correctAnswer) {
+    score++;
+    answerIsCorrect();
+  } else {
+    answerIsIncorrect();
+  }
+}
+
+//answer isCorrect function
+function answerIsCorrect() {
+  document.getElementById(activeQuestion).style.backgroundColor = "green";
+}
+
+//answer isInCorrect function
+function answerIsInCorrect() {
+  document.getElementById(activeQuestion).style.backgroundColor = "red";
 }
