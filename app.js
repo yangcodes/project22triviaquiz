@@ -119,6 +119,14 @@ let TIMER;
 //start button event listner
 start.addEventListener("click", startQuiz);
 
+//answer choices event listeners
+allAnswerChoices.forEach(function (clickAnswer) {
+  clickAnswer.addEventListener("click", function (e) {
+    let userAnswer = e.target.innerText;
+    checkAnswer(userAnswer);
+  });
+});
+
 //renderQuestion function
 function renderQuestion() {
   let q = questions[activeQuestion];
