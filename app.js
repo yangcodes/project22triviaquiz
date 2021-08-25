@@ -1,4 +1,5 @@
 const start = document.querySelector(".start");
+const replay = document.querySelector(".replay");
 const quiz = document.querySelector(".quiz");
 const question = document.querySelector(".question");
 const allAnswerChoices = document.querySelectorAll(".choice");
@@ -120,6 +121,8 @@ let score = 0;
 //start button event listner
 start.addEventListener("click", startQuiz);
 
+//replay button event listner
+replay.addEventListener("click", replayQuiz);
 //answer choices event listeners
 allAnswerChoices.forEach(function (clickAnswer) {
   clickAnswer.addEventListener("click", function (e) {
@@ -165,7 +168,8 @@ function renderCounter() {
     timeGauge.style.width = count * gaugeUnit + "px";
     count++;
   } else {
-    count = 0;
+    answerIsIncorrect();
+    nextQuestion();
   }
 }
 
@@ -177,6 +181,7 @@ function checkAnswer(answer) {
   } else {
     answerIsIncorrect();
   }
+  nextQuestion();
 }
 
 //answer isCorrect function
@@ -185,6 +190,39 @@ function answerIsCorrect() {
 }
 
 //answer isInCorrect function
-function answerIsInCorrect() {
+function answerIsIncorrect() {
   document.getElementById(activeQuestion).style.backgroundColor = "red";
+}
+
+//next question function
+function nextQuestion() {
+  count = 0;
+  if (activeQuestion < lastQuestion) {
+    activeQuestion++;
+    renderQuestion();
+  } else {
+    clearInterval(TIMER);
+    renderScore();
+  }
+}
+
+//renderScore function
+function renderScore() {
+  scoreContainer.style.visibility = "visible";
+
+  let scorePercentage = Math.round((100 * score) / questions.length);
+  if (scorePercentage >= 60) {
+    scoreContainer.innerHTML = `<h2>Good job! Percentage of Correctly Answered Questions: ${scorePercentage}</h2>`;
+    scoreContainer.innerHTML += `<h2>Good job! Number of Correctly Answered Questions: ${score}</h2>`;
+  } else {
+    scoreContainer.innerHTML = `<h2>Meh! Percentage of Correctly Answered Questions: ${scorePercentage}</h2>`;
+    scoreContainer.innerHTML += `<h2>Meh! Number of Correctly Answered Questions: ${score}</h2>`;
+  }
+}
+
+// replay quiz function
+function replayQuiz() {
+  replay.style.visibility = "visible";
+
+  startQuiz();
 }
